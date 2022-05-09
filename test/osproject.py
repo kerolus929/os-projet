@@ -83,28 +83,4 @@ class Path:
                 print('"{}" is not recognized as an internal or external command\n'.format(self.path[0]))
 
                 
-class Virtual_Disk:
-        def initialize(self,name):
-            if os.path.exists(name):
-                self.file = open(name,"rwb")
-                Mini_FAT.ReadFat()
-                # Thec fill exist
-                # // calls the method from the Mini_FAT class to read the fat from the virtual disk.
-            else :
-                self.file = open(name,"rwb")
-                '''
-                if the file does not exist means that we know in the phase of producing the virtual disk.
-                so, it creates a file with that name, opens it then call a method from the class Mini_FAT (mentioned below) 
-                to prepare our FAT then write the first cluster as 0s (write the first 1024 bytes as 0s), 
-                then it also calls the method from Mini_FAT class to write the FAT into the file.
-                '''
-                Mini_FAT.PrepareFAT()
-                Mini_FAT.WriteFat()
-        def WriteCluster(self,ClusterIndex, b = [None for _ in range(1024)]):
-            self.file.seek(ClusterIndex*1024,0) # 0: means your reference point is the beginning of the file https://stackoverflow.com/questions/11696472/seek-function
-            self.file.write(bytes(bytearray(b))) #covert the list to bytes and write in file
-            self.file.flush()
 
-        def ReadCluster(self,ClusterIndex):
-            self.file.seek(ClusterIndex*1024,0)
-            return self.file.read(1024)
