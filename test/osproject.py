@@ -81,6 +81,6 @@ class Path:
             #if the user give unvalid command the shell will give a message that the command is not recognized 
             else:
                 print('"{}" is not recognized as an internal or external command\n'.format(self.path[0]))
-
-                
-
+p=Path()
+p.help()
+p.init()
